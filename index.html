@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>MeTube</title>
+</head>
+<body>
+     <header>
+        <nav class="flex items-center justify-between max-w-[1400px] mx-auto mt-6">
+            <div class="logo">
+                <img src="Logo.png" alt="">
+            </div>
+            <button class="py-2 px-5 bg-gray-300 text-black cursor-pointer" id="sort">Sort by view</button>
+            <button class="bg-red-600 text-white py-3 px-7 cursor-pointer border rounded-lg">Blog</button>
+
+        </nav>
+        <div class="max-w-[1400px] mx-auto mt-5">
+            <hr class="text-gray-300">
+        </div>
+     </header>
+     <main class="max-w-[1400px] mx-auto">
+        <div id="category-section" class="flex gap-10 mt-5 items-center justify-center">
+            <div onclick="videoUrl()" class="bg-red-400 text-white py-2 px-6 rounded-lg cursor-pointer">All</div>
+        </div>
+
+        <!-- video section -->
+        <div id="video-container" class="grid grid-cols-4 gap-5 mt-15 mb-10 items-center">
+
+        </div>
+     </main>
+     <footer>
+
+     </footer>
+</body>
+<script src="app.js"></script>
+</html>
