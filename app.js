@@ -11,19 +11,36 @@ const categoryData =(categoriess)=>{
         let div = document.createElement("div")
         div.innerHTML = `
 
-        <button onclick="loadCategoryId(${category.category_id})" class="active:bg-red-400 active:text-white py-2 px-6 hover:bg-red-400 hover:text-white bg-gray-300 rounded-lg cursor-pointer">${category.category}</button>
+        <button id="btn-${category.category_id}" onclick="loadCategoryId(${category.category_id})" class="active:bg-red-400 active:text-white py-2 px-6 hover:bg-red-400 hover:text-white bg-gray-300 rounded-lg cursor-pointer">${category.category}</button>
         
         `;
         categoryContainer.appendChild(div)
     }
 }
 
+const removeActiveClass = ()=>{
+    const activeButtons = document.getElementsByClassName("bg-red-400", "text-white", "py-2", "px-6")
+    for(const btn of activeButtons){
+        btn.classList.remove("bg-red-400", "text-white", "py-2", "px-6");
+        btn.classList.add("bg-gray-300", "text-black", "py-2", "px-6");
+    }
+
+}
+
 const loadCategoryId = (id)=>{
     const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
-    console.log(url)
+    // console.log(url)
     fetch(url)
         .then((res)=> res.json())
-            .then((data)=> videoData(data.category))
+            .then((data)=> {
+                removeActiveClass()
+                const clickedBtn = document.getElementById(`btn-${id}`)
+                // console.log(clickedBtn)
+                clickedBtn.classList.add(
+                  "bg-red-400", "text-white", "py-2", "px-6"
+                );
+                videoData(data.category);
+            })
 }
 
 
@@ -31,7 +48,13 @@ const videoUrl =()=>{
      const url = "https://openapi.programming-hero.com/api/phero-tube/videos";
      fetch(url)
        .then((res) => res.json())
-       .then((data) => videoData(data.videos));
+       .then((data) => {
+        removeActiveClass()
+        document
+          .getElementById("btn-all")
+          .classList.add("bg-red-400", "text-white", "py-2", "px-6");
+        videoData(data.videos);
+       });
 
 }
 const videoData = (videos)=>{
