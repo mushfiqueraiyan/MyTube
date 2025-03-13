@@ -43,9 +43,44 @@ const loadCategoryId = (id)=>{
             })
 }
 
+const loadVideoDetails = (videoId) => {
+    const url = `https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`
+    // console.log(url)
+    fetch(url)
+        .then((res)=> res.json())
+            .then((data)=>{
+                loadDetails(data.video)
+            })
 
-const videoUrl =()=>{
-     const url = "https://openapi.programming-hero.com/api/phero-tube/videos";
+};
+
+const loadDetails = (details)=>{
+    // console.log(details)
+    document.getElementById("video_details").showModal()
+    const detailsContainer = document.getElementById("details-container");
+
+    detailsContainer.innerHTML = `
+   <div class="card bg-base-100 image-full shadow-sm">
+  <figure>
+    <img
+      src="${details.thumbnail}"
+      alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">${details.title}</h2>
+    <p>${details.description}</p>
+    <div class="card-actions justify-end">
+      
+    </div>
+  </div>
+</div>
+  `;
+}
+
+
+const videoUrl =(search="")=>{
+     const url = `https://openapi.programming-hero.com/api/phero-tube/videos?title=${search}`;
+     console.log(url)
      fetch(url)
        .then((res) => res.json())
        .then((data) => {
@@ -61,7 +96,7 @@ const videoData = (videos)=>{
     const videoContainer = document.getElementById("video-container");
     videoContainer.innerHTML = ""
     for(const video of videos){
-        
+        // console.log(video)
         const div = document.createElement("div")
         div.classList.add("w-80")
         div.innerHTML = `
@@ -73,13 +108,16 @@ const videoData = (videos)=>{
             <img src ="${video.authors[0].profile_picture}" class="w-7 h-7 rounded-full "/>
             <h1 class="text-xl font-sans font-bold">${video.title}</h1>
             </div>
-            <p class="my-1">${video.authors[0].profile_name}</p>
+            <p class="my-1">${video.authors[0].profile_name}
+            ${video.authors[0].verified ? "✅" : ""}
+            </p>
             <p class="text-sm text-gray-400">${video.others.views} views</p>
 
-
+            <button onclick=loadVideoDetails('${video.video_id}') class="btn btn-block">Show Details</button>
         `;
         videoContainer.appendChild(div)
     }
+
 
     if(videos.length === 0){
         videoContainer.innerHTML = `
@@ -87,7 +125,13 @@ const videoData = (videos)=>{
         `
     }
 
-
 }
+
+document.getElementById("search").addEventListener("keyup", (e)=>{
+    const inputT = e.target.value;
+    // console.log(inputT);
+    videoUrl(inputT);
+})
+
 
 videoUrl()

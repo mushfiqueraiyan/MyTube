@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <title>MeTube</title>
 </head>
 <body>
      <header>
+        
         <nav class="flex items-center justify-between max-w-[1400px] mx-auto mt-6">
             <div class="logo">
                 <img src="Logo.png" alt="">
             </div>
-            <button class="py-2 px-5 bg-gray-300 text-black cursor-pointer" id="sort">Sort by view</button>
-            <button class="bg-red-600 text-white py-3 px-7 cursor-pointer border rounded-lg">Blog</button>
+            <label class="input">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></g></svg>
+                <input id="search" type="search" required placeholder="Search"/>
+              </label>
+            <button class="bg-red-600 text-white py-3 px-7 cursor-pointer border rounded-lg">Sort by View</button>
 
         </nav>
         <div class="max-w-[1400px] mx-auto mt-5">
@@ -27,8 +32,21 @@
 
         <!-- video section -->
         <div id="video-container" class="grid grid-cols-4 gap-5 mt-15 mb-10 items-center">
-
+            
         </div>
+
+        <dialog id="video_details" class="modal">
+            <div class="modal-box">
+              <div id="details-container"></div>
+      
+              <div class="modal-action">
+                <form method="dialog">
+                  <!-- if there is a button in form, it will close the modal -->
+                  <button class="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
      </main>
      <footer>
 
